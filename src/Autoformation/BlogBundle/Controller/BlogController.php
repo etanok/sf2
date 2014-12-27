@@ -48,10 +48,14 @@ class BlogController extends Controller
     }
     public function voirAction($id)
     {
-        // Ici, on récupérera l'article correspondant à l'id $id
-        return $this->render('AutoformationBlogBundle:Blog:voir.html.twig', array(
-        'id' => $id
-        ));
+        $article = array(
+            'id' => 1,
+            'titre' => 'Mon weekend a Phi Phi Island !',
+            'auteur' => 'winzou',
+            'contenu' => 'Ce weekend était trop bien. Blabla…',
+            'date' => new \Datetime()
+        );
+        return $this->render('AutoformationBlogBundle:Blog:voir.html.twig', array('article' => $article));
     }
     public function ajouterAction()
     {
@@ -68,8 +72,14 @@ class BlogController extends Controller
     public function modifierAction($id)
     {
         // Ici, on récupérera l'article correspondant à $id
-        // Ici, on s'occupera de la création et de la gestion du formulaire
-        return $this->render('AutoformationBlogBundle:Blog:modifier.html.twig');
+        $article = array(
+            'id' => 1,
+            'titre' => 'Mon weekend a Phi Phi Island !',
+            'auteur' => 'winzou',
+            'contenu' => 'Ce weekend était trop bien. Blabla…',
+            'date' => new \Datetime()
+        );
+        return $this->render('AutoformationBlogBundle:Blog:modifier.html.twig', array('article' => $article));
     }
     public function supprimerAction($id)
     {
