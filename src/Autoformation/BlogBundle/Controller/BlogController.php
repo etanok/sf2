@@ -19,12 +19,12 @@ class BlogController extends Controller
         }
         // Ici, on récupérera la liste des articles, puis on la passera au template
         // Mais pour l'instant, on ne fait qu'appeler le template
-        return $this->render('SdzBlogBundle:Blog:index.html.twig');
+        return $this->render('AutoformationBlogBundle:Blog:index.html.twig');
     }
     public function voirAction($id)
     {
         // Ici, on récupérera l'article correspondant à l'id $id
-        return $this->render('SdzBlogBundle:Blog:voir.html.twig', array(
+        return $this->render('AutoformationBlogBundle:Blog:voir.html.twig', array(
         'id' => $id
         ));
     }
@@ -35,21 +35,21 @@ class BlogController extends Controller
             // Ici, on s'occupera de la création et de la gestion du formulaire
             $this->get('session')->getFlashBag()->add('notice', 'Article bien enregistré');
             // Puis on redirige vers la page de visualisation de cet article
-            return $this->redirect( $this->generateUrl('sdzblog_voir', array('id' => 5)) );
+            return $this->redirect( $this->generateUrl('autoformation_blog_voir', array('id' => 5)) );
         }
         // Si on n'est pas en POST, alors on affiche le formulaire
-        return $this->render('SdzBlogBundle:Blog:ajouter.html.twig');
+        return $this->render('AutoformationBlogBundle:Blog:ajouter.html.twig');
     }
     public function modifierAction($id)
     {
         // Ici, on récupérera l'article correspondant à $id
         // Ici, on s'occupera de la création et de la gestion du formulaire
-        return $this->render('SdzBlogBundle:Blog:modifier.html.twig');
+        return $this->render('AutoformationBlogBundle:Blog:modifier.html.twig');
     }
     public function supprimerAction($id)
     {
         // Ici, on récupérera l'article correspondant à $id
         // Ici, on gérera la suppression de l'article en question
-        return $this->render('SdzBlogBundle:Blog:supprimer.html.twig');
+        return $this->render('AutoformationBlogBundle:Blog:supprimer.html.twig');
     }
 }
