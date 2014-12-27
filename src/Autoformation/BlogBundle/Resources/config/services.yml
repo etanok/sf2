@@ -1,0 +1,4 @@
+services:
+#    autoformation_blog.example:
+#        class: Autoformation\BlogBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,32 @@
+autoformation_blog_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: AutoformationBlogBundle:Default:index }
+
+autoformation_blog_accueil:
+    path:         /{page}
+    defaults:     { _controller: AutoformationBlogBundle:Blog:index, page: 1}
+    requirements:
+        id:       \d+
+
+autoformation_blog_voir:
+    path:         /article/{id}
+    defaults:     { _controller: AutoformationBlogBundle:Blog:voir}
+    requirements:
+        id:       \d+
+
+autoformation_blog_ajouter:
+    path:        /ajouter
+    defaults:    { _controller: AutoformationBlogBundle:Blog:ajouter}
+
+autoformation_blog_supprimer:
+    path:        /supprimer/{id}
+    defaults:    { _controller: AutoformationBlogBundle:Blog:supprimer}
+    requirements:
+        id:      \d+
+
+autoformation_blog_modifier:
+    path:         /modifier/{id}
+    defaults:     { _controller: AutoformationBlogBundle:Blog:modifier}
+    requirements:
+        id:       \d+
+
