@@ -1,6 +1,6 @@
 autoformation_blog:
     resource: "@AutoformationBlogBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /Blog
 
 app:
     resource: @AppBundle/Controller/
