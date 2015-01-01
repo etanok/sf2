@@ -67,7 +67,8 @@ class BlogController extends Controller
             return $this->redirect( $this->generateUrl('autoformation_blog_voir', array('id' => 5)) );
         }
         // Si on n'est pas en POST, alors on affiche le formulaire
-        return $this->render('AutoformationBlogBundle:Blog:ajouter.html.twig');
+        $article = array('id' => 2, 'titre' => 'Mon dernier weekend !');
+        return $this->render('AutoformationBlogBundle:Blog:ajouter.html.twig', array('article' => $article));
     }
     public function modifierAction($id)
     {
