@@ -2,6 +2,7 @@
 
 namespace Autoformation\BlogBundle\Controller;
 
+use Autoformation\BlogBundle\Entity\Article;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Httpfoundation\Response;
 
@@ -59,15 +60,24 @@ class BlogController extends Controller
     }
     public function ajouterAction()
     {
+        $article = new Article();
+        $article->setTitre("Mon voyage au Mali");
+        $article->setAuteur("Oumar KONATE");
+        $article->setContenu("Mon voyage au Mali était une très belle expérience. J'ai pu me ressourcer auprès du paysage magnifique");
+        $article->setDate(new \DateTime());
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($article);
+        $entityManager->flush();
+
         // La gestion d'un formulaire est particulière, mais l'idée est la suivante :
         if( $this->get('request')->getMethod() == 'POST' ) {
             // Ici, on s'occupera de la création et de la gestion du formulaire
             $this->get('session')->getFlashBag()->add('notice', 'Article bien enregistré');
             // Puis on redirige vers la page de visualisation de cet article
-            return $this->redirect( $this->generateUrl('autoformation_blog_voir', array('id' => 5)) );
+            return $this->redirect( $this->generateUrl('autoformation_blog_voir', array('id' => $article->getId())) );
         }
         // Si on n'est pas en POST, alors on affiche le formulaire
-        $article = array('id' => 2, 'titre' => 'Mon dernier weekend !');
         return $this->render('AutoformationBlogBundle:Blog:ajouter.html.twig', array('article' => $article));
     }
     public function modifierAction($id)

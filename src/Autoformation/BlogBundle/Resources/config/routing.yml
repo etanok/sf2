@@ -1,3 +1,7 @@
+autoformation_blog_ajouter:
+    path:        /ajouter
+    defaults:    { _controller: AutoformationBlogBundle:Blog:ajouter}
+
 autoformation_blog_homepage:
     path:     /hello/{name}
     defaults: { _controller: AutoformationBlogBundle:Default:index }
@@ -13,10 +17,6 @@ autoformation_blog_voir:
     defaults:     { _controller: AutoformationBlogBundle:Blog:voir}
     requirements:
         id:       \d+
-
-autoformation_blog_ajouter:
-    path:        /ajouter
-    defaults:    { _controller: AutoformationBlogBundle:Blog:ajouter}
 
 autoformation_blog_supprimer:
     path:        /supprimer/{id}
