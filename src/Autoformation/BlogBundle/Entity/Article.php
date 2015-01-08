@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Article
  *
- * @ORM\Table(name="autoformation_article")
+ * @ORM\Table(name="blog_article")
  * @ORM\Entity(repositoryClass="Autoformation\BlogBundle\Entity\ArticleRepository")
  */
 class Article
@@ -48,6 +48,11 @@ class Article
      * @ORM\Column(name="contenu", type="text")
      */
     private $contenu;
+    
+    /**
+     *@ORM\OneToOne(targetEntity="Autoformation\BlogBundle\Entity\Image", cascade="persist") 
+     */
+    private $image;
 
     /**
      * @var bool
@@ -55,6 +60,9 @@ class Article
      */
     private $publication = true;
 
+    /**
+     * Constructeur de la classe
+     */
     public function __contruct()
     {
         $this->date = new \DateTime();
@@ -185,5 +193,28 @@ class Article
     public function getPublication()
     {
         return $this->publication;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \Autoformation\BlogBundle\Entity\Image $image
+     * @return Article
+     */
+    public function setImage(\Autoformation\BlogBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \Autoformation\BlogBundle\Entity\Image 
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }
