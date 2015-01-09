@@ -61,6 +61,11 @@ class Article
     private $publication = true;
 
     /**
+     * @ORM\OneToMany(targetEntity="Autoformation\BlogBundle\Entity\Commentaire", mappedBy="article")
+     */
+    private $commentaires;
+
+    /**
      * Constructeur de la classe
      */
     public function __contruct()
@@ -216,5 +221,46 @@ class Article
     public function getImage()
     {
         return $this->image;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->commentaires = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add commentaires
+     *
+     * @param \Autoformation\BlogBundle\Entity\Commentaire $commentaires
+     * @return Article
+     */
+    public function addCommentaire(\Autoformation\BlogBundle\Entity\Commentaire $commentaires)
+    {
+        $this->commentaires[] = $commentaires;
+        $commentaires->setArticle($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove commentaires
+     *
+     * @param \Autoformation\BlogBundle\Entity\Commentaire $commentaires
+     */
+    public function removeCommentaire(\Autoformation\BlogBundle\Entity\Commentaire $commentaires)
+    {
+        $this->commentaires->removeElement($commentaires);
+    }
+
+    /**
+     * Get commentaires
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCommentaires()
+    {
+        return $this->commentaires;
     }
 }

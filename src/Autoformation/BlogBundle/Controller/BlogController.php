@@ -85,7 +85,7 @@ class BlogController extends Controller
         $commentaire1 = new Commentaire();
         $commentaire1->setAuteur("Fan Blogueur");
         $commentaire1->setContenu("J'aime bien votre article!");
-        $commentaire1->setArticle($article);
+        $article->addCommentaire($commentaire1);
         
         $commentaire2 = new Commentaire();
         $commentaire2->setAuteur("Loulou");
@@ -139,16 +139,10 @@ class BlogController extends Controller
     }
     public function menuAction($nombre) // Ici, nouvel argument $nombre, on l'a transmis via le render() depuis la vue
     {
-        // On fixe en dur une liste ici, bien entendu par la suite on la récupérera depuis la BDD !
-        // On pourra récupérer $nombre articles depuis la BDD,
-        // avec $nombre un paramètre qu'on peut changer lorsqu'on appelle cette action
-        $liste = array(
-            array('id' => 2, 'titre' => 'Mon dernier weekend !'),
-            array('id' => 5, 'titre' => 'Sortie de Symfony2.1'),
-            array('id' => 9, 'titre' => 'Petit test')
-        );
+        $repository = $this->getDoctrine()->getManager()->getRepository("Autoformation\BlogBundle\Entity\Article");
+        $listeArticles = $repository->findBy(array(), array(), $nombre, 0);
         return $this->render('AutoformationBlogBundle:Blog:menu.html.twig', array(
-            'liste_articles' => $liste // C'est ici tout l'intérêt : le contrôleur passe les variables nécessaires au template !
+            'liste_articles' => $listeArticles // C'est ici tout l'intérêt : le contrôleur passe les variables nécessaires au template !
         ));
     }
 }
