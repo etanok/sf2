@@ -23,30 +23,10 @@ class BlogController extends Controller
         // Ici, on récupérera la liste des articles, puis on la passera au template
         // Mais pour l'instant, on ne fait qu'appeler le template
         // Les articles :
-        $articles = array(
-            array(
-                'titre' => 'Mon weekend a Phi Phi Island !',
-                'id' => 1,
-                'auteur' => 'winzou',
-                'contenu' => 'Ce weekend était trop bien. Blabla…',
-                'date' => new \Datetime()
-            ),
-            array(
-                'titre' => 'Repetition du National Day de Singapour',
-                'id' => 2,
-                'auteur' => 'winzou',
-                'contenu' => 'Bientôt prêt pour le jour J. Blabla…',
-                'date' => new \Datetime()
-            ),
-            array(
-                'titre' => 'Chiffre d\'affaire en hausse',
-                'id' => 3,
-                'auteur' => 'M@teo21',
-                'contenu' => '+500% sur 1 an, fabuleux. Blabla…',
-                'date' => new \Datetime()
-            )
-        );
-
+        $articles = $this->getDoctrine()
+                            ->getManager()
+                            ->getRepository("AutoformationBlogBundle:Article")
+                            ->recupererArticlesParNomEtDate();
         return $this->render('AutoformationBlogBundle:Blog:index.html.twig', array('articles' => $articles));
     }
     public function voirAction($id)

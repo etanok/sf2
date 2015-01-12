@@ -12,4 +12,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class ArticleRepository extends EntityRepository
 {
+    public function recupererArticlesParNomEtDate()
+    {
+        $queryBuilder = $this->createQueryBuilder('a');
+        $this->recupererArticlesAnneesEnCours($queryBuilder);
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function recupererArticlesAnneesEnCours( \Doctrine\ORM\QueryBuilder $queryBuilder )
+    {
+        return  $queryBuilder->andWhere("a.date BETWEEN :debut AND :fin")
+                             ->setParameter(':debut', '2015-01-01')
+                             ->setParameter(':fin', '2015-12-31');
+    }
 }
