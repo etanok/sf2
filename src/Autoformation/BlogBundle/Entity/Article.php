@@ -64,6 +64,11 @@ class Article
      * @ORM\OneToMany(targetEntity="Autoformation\BlogBundle\Entity\Commentaire", mappedBy="article")
      */
     private $commentaires;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="\Autoformation\BlogBundle\Entity\Categorie", cascade={"persist"})
+     */
+    private $categories;
 
     /**
      * Constructeur de la classe
@@ -262,5 +267,38 @@ class Article
     public function getCommentaires()
     {
         return $this->commentaires;
+    }
+
+    /**
+     * Add categories
+     *
+     * @param \Autoformation\BlogBundle\Entity\Categorie $categories
+     * @return Article
+     */
+    public function addCategory(\Autoformation\BlogBundle\Entity\Categorie $categories)
+    {
+        $this->categories[] = $categories;
+
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param \Autoformation\BlogBundle\Entity\Categorie $categories
+     */
+    public function removeCategory(\Autoformation\BlogBundle\Entity\Categorie $categories)
+    {
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }

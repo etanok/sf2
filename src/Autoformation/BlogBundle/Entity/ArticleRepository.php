@@ -25,4 +25,9 @@ class ArticleRepository extends EntityRepository
                              ->setParameter(':debut', '2015-01-01')
                              ->setParameter(':fin', '2015-12-31');
     }
+
+    public function recupererArticlesAnneesEnCoursDQL(\Doctrine\ORM\QueryBuilder $queryBuilder)
+    {
+        //$requeteDql = $this->
+    }
 }
