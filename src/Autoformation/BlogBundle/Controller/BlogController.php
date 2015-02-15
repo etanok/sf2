@@ -12,6 +12,7 @@ class BlogController extends Controller
 {
     public function indexAction($page)
     {
+        $nbrParPage = 5;
         // On ne sait pas combien de pages il y a
         // Mais on sait qu'une page doit être supérieure ou égale à 1
         if( $page < 1 )
@@ -26,18 +27,14 @@ class BlogController extends Controller
         $articles = $this->getDoctrine()
                             ->getManager()
                             ->getRepository("AutoformationBlogBundle:Article")
-                            ->recupererArticlesParNomEtDate();
-        return $this->render('AutoformationBlogBundle:Blog:index.html.twig', array('articles' => $articles));
+                            ->getArticles($nbrParPage, $page);
+        return $this->render('AutoformationBlogBundle:Blog:index.html.twig', array(
+                                                                                    'articles' => $articles,
+                                                                                    'nombrePage' => ceil(count($articles)/3),
+                                                                                    'page' =>$page ));
     }
-    public function voirAction($id)
+    public function voirAction(Article $article)
     {
-        $article = $this->getDoctrine()
-        				->getManager()
-        				->getRepository("Autoformation\BlogBundle\Entity\Article")
-        				->find($id);
-        if($article === null) {
-        	throw $this->createNotFoundException("Article [id=$id] introuvable !!!");
-        }
         $listeCommentaires = $this->getDoctrine()
 	        				->getManager()
 	        				->getRepository("Autoformation\BlogBundle\Entity\Commentaire")

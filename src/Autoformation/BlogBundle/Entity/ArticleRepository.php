@@ -3,6 +3,7 @@
 namespace Autoformation\BlogBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * ArticleRepository
@@ -29,5 +30,22 @@ class ArticleRepository extends EntityRepository
     public function recupererArticlesAnneesEnCoursDQL(\Doctrine\ORM\QueryBuilder $queryBuilder)
     {
         //$requeteDql = $this->
+    }
+
+    public function getArticles($nbrParPage, $page)
+    {
+        if($page < 1) {
+            throw new \InvalidArgumentException("L'argument page ne peut etre inferieur a 1 {page = $page}");
+        }
+        $queryBuilder = $this->createQueryBuilder('a')
+                             ->leftJoin('a.image', 'i')
+                                ->addSelect('i')
+                             ->leftJoin('a.categories', 'c')
+                                ->addSelect('c')
+                             ->orderBy('a.date', 'ASC');
+        $query = $queryBuilder->getQuery();
+        $query->setFirstResult(($page + 1) * $nbrParPage)
+              ->setMaxResults($nbrParPage);
+        return new Paginator($query);
     }
 }
