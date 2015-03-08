@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Httpfoundation\Response;
 use Autoformation\BlogBundle\Entity\Image;
 use Autoformation\BlogBundle\Entity\Commentaire;
+use Autoformation\BlogBundle\Form\ArticleType;
 
 class BlogController extends Controller
 {
@@ -48,42 +49,21 @@ class BlogController extends Controller
     public function ajouterAction()
     {
         $article = new Article();
-        $article->setTitre("Mon voyage au Mali");
-        $article->setAuteur("Oumar KONATE");
-        $article->setContenu("Mon voyage au Mali était une très belle expérience. J'ai pu me ressourcer auprès du paysage magnifique");
-        $article->setDate(new \DateTime());
-        
-        $image = new Image();
-        $image->setUrl("http://uploads.siteduzero.com/icones/478001_479000/478657.png");
-        $image->setAlt("Loger Au Mali");
-        $image->setDate(new \DateTime());
-        $article->setImage($image);
-
-        $commentaire1 = new Commentaire();
-        $commentaire1->setAuteur("Fan Blogueur");
-        $commentaire1->setContenu("J'aime bien votre article!");
-        $article->addCommentaire($commentaire1);
-        
-        $commentaire2 = new Commentaire();
-        $commentaire2->setAuteur("Loulou");
-        $commentaire2->setContenu("Vivement vos prochains articles ...");
-        $commentaire2->setArticle($article);
-        
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($article);
-        $entityManager->persist($commentaire1);
-        $entityManager->persist($commentaire2);
-        $entityManager->flush();
-
+        $form = $this->createForm(new ArticleType(), $article);
+        $request = $this->get('request');
         // La gestion d'un formulaire est particulière, mais l'idée est la suivante :
-        if( $this->get('request')->getMethod() == 'POST' ) {
+        if($request->getMethod() == 'POST' ) {
+            $form->bind($request);
             // Ici, on s'occupera de la création et de la gestion du formulaire
             $this->get('session')->getFlashBag()->add('notice', 'Article bien enregistré');
             // Puis on redirige vers la page de visualisation de cet article
             return $this->redirect( $this->generateUrl('autoformation_blog_voir', array('id' => $article->getId())) );
         }
         // Si on n'est pas en POST, alors on affiche le formulaire
-        return $this->render('AutoformationBlogBundle:Blog:ajouter.html.twig', array('article' => $article));
+        return $this->render('AutoformationBlogBundle:Blog:ajouter.html.twig',
+            array(
+                'form' => $form->createView(),
+            ));
     }
     public function modifierAction($id)
     {
