@@ -3,12 +3,14 @@
 namespace Autoformation\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Image
  *
  * @ORM\Table(name="blog_image")
  * @ORM\Entity(repositoryClass="Autoformation\BlogBundle\Entity\ImageRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Image
 {
@@ -128,5 +130,13 @@ class Image
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function updateDateImage()
+    {
+        $this->date = new \DateTime();
     }
 }
