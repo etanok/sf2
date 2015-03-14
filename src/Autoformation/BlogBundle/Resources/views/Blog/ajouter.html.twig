@@ -5,14 +5,4 @@
 {% block autoformation_blog_body %}
     <h2>Ajouter un article</h2>
     {% include "AutoformationBlogBundle:Blog:formulaire.html.twig" %}
-    <p>
-        Vous ajoutez un article, c'est cool! N'oubliez pas de le publier par la suite.
-    </p>
-    <p>
-        <a href="{{ path('autoformation_blog_voir', {'id': article.id}) }}"
-           class="btn">
-            <i class="icon-chevron-left"></i>
-            Retour à l'article
-        </a>
-    </p>
 {% endblock %}
