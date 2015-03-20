@@ -16,9 +16,9 @@ class ArticleType extends AbstractType
     {
         $builder
             ->add('date', 'date')
-            ->add('titre', 'text')
+            ->add('titre', 'text', array('required' => false))
             ->add('auteur', 'text')
-            ->add('contenu', 'textarea')
+            ->add('contenu', 'textarea', array())
             ->add('publication', 'checkbox', array('required' => false))
             ->add('image', new ImageArticleType())
             ->add('categories', 'entity', array('class' => 'AutoformationBlogBundle:Categorie',

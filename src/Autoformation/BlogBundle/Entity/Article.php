@@ -3,6 +3,8 @@
 namespace Autoformation\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Article
@@ -20,7 +22,7 @@ class Article
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
+ 
     /**
      * @var \DateTime
      *
@@ -32,6 +34,7 @@ class Article
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255)
+     * @Assert\Length(min=5, minMessage="Le titre doit faire au moins 5 caractères.")
      */
     private $titre;
 
@@ -300,5 +303,18 @@ class Article
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validerContenu(ExecutionContextInterface $contexte)
+    {
+        $motInterdit = array('atlassi', 'khalid');
+        if (preg_match('#'.implode('|', $motInterdit).'#', $this->getContenu())) {
+           $contexte->buildViolation('Interdit d\'ajouter un celibataire à mon blog')
+                    ->atPath('contenu')
+                    ->addViolation();
+        }
     }
 }
