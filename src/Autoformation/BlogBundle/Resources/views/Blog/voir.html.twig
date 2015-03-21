@@ -3,6 +3,15 @@
     Lecture d'un article - {{ parent() }}
 {% endblock %}
 {% block autoformation_blog_body %}
+    <p>
+        {% for message in app.session.flashbag.get('infos') %}
+            <p>
+                <div class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+            </p>
+        {% endfor %}
+    </p>
     {# Ici, on inclut la vue #}
     {% include "AutoformationBlogBundle:Blog:article.html.twig" %}
     <p>
