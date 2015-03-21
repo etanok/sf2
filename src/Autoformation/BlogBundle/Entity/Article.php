@@ -34,7 +34,7 @@ class Article
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255)
-     * @Assert\Length(min=5, minMessage="Le titre doit faire au moins 5 caractères.")
+     * @Assert\Length(min=5, minMessage="Le titre doit faire au moins 5 caractï¿½res.")
      */
     private $titre;
 
@@ -53,7 +53,7 @@ class Article
     private $contenu;
     
     /**
-     *@ORM\OneToOne(targetEntity="Autoformation\BlogBundle\Entity\Image", cascade="persist") 
+     *@ORM\OneToOne(targetEntity="Autoformation\BlogBundle\Entity\Image", cascade={"persist","remove"})
      */
     private $image;
 
@@ -64,7 +64,7 @@ class Article
     private $publication = true;
 
     /**
-     * @ORM\OneToMany(targetEntity="Autoformation\BlogBundle\Entity\Commentaire", mappedBy="article")
+     * @ORM\OneToMany(targetEntity="Autoformation\BlogBundle\Entity\Commentaire", mappedBy="article", cascade={"remove"})
      */
     private $commentaires;
     
@@ -312,7 +312,7 @@ class Article
     {
         $motInterdit = array('atlassi', 'khalid');
         if (preg_match('#'.implode('|', $motInterdit).'#', $this->getContenu())) {
-           $contexte->buildViolation('Interdit d\'ajouter un celibataire à mon blog')
+           $contexte->buildViolation('Interdit d\'ajouter un celibataire ï¿½ mon blog')
                     ->atPath('contenu')
                     ->addViolation();
         }
