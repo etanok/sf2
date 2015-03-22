@@ -1,0 +1,4 @@
+services:
+#    autoformation_user.example:
+#        class: Autoformation\UserBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
