@@ -1,0 +1,19 @@
+{% extends "::layout.html.twig" %}
+
+{% block body %}
+    {# En cas d'erreur, on l'affiche #}
+    {% if error %}
+        <div class="alert alert-error"> {{ error.message }} </div>
+    {% endif %}
+
+<form action="{{ path('user_connexion_check') }}" method="post">
+    <label for="username">Nom d'utilisateur: </label>
+    <input type="text" id="username" name="_username" value="{{ last_username }}"/>
+
+    <label for="password">Mot de passe: </label>
+    <input type="password" id="password" name="_password"/>
+    <br/>
+
+    <input type="submit" value="Connexion"/>
+</form>
+{% endblock %}
