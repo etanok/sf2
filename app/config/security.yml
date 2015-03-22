@@ -1,12 +1,26 @@
 security:
+    role_hierarchy:
+        ROLE_ADMINISTRATEUR:       ROLE_UTILISATEUR
+        ROLE_SUPER_ADMINISTRATEUR: [ROLE_UTILISATEUR, ROLE_ADMINISTRATEUR]
     providers:
         in_memory:
-            memory: ~
+            memory:
+                users:
+                    oumar:    { password: konate, roles: ['ROLE_UTILISATEUR'] }
+                    admin:    { password: admin, roles: ['ROLE_ADMINISTRATEUR'] }
 
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        default:
-            anonymous: ~
+        main:
+            pattern:   ^/
+            anonymous: true
+            provider:  in_memory
+            form_login:
+                login_path: connexion
+                check_path: connexion_check
+            logout:
+                path: deconnexion
+                target: /Blog

@@ -1,3 +1,7 @@
+autoformation_user:
+    resource: "@AutoformationUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
 autoformation_blog:
     resource: "@AutoformationBlogBundle/Resources/config/routing.yml"
     prefix:   /Blog

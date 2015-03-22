@@ -1,3 +1,13 @@
+user_connexion:
+    pattern:      /connexion
+    defaults:     { _controller: AutoformationUserBundle:Security:connexion  }
+
+user_connexion_check:
+    pattern:      /connexion_check
+
+user_deconnexion:
+    pattern:      /deconnexion
+
 autoformation_blog_ajouter:
     path:        /ajouter
     defaults:    { _controller: AutoformationBlogBundle:Blog:ajouter}
