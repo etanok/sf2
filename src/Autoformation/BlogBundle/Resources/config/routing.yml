@@ -1,12 +1,12 @@
-user_connexion:
-    pattern:      /connexion
+login:
+    pattern:      /login
     defaults:     { _controller: AutoformationUserBundle:Security:connexion  }
 
-user_connexion_check:
-    pattern:      /connexion_check
+login_check:
+    pattern:      /login_check
 
-user_deconnexion:
-    pattern:      /deconnexion
+logout:
+    pattern:      /logout
 
 autoformation_blog_ajouter:
     path:        /ajouter
