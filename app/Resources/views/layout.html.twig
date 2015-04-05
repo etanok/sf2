@@ -14,11 +14,11 @@
                 <p>
                     Bienvenue dans mon Blog! vous êtes connecté en tant qu'
                     {% if is_granted('ROLE_ADMINISTRATEUR') %}
-                        administrateur
+                        <B>administrateur</B>
                     {% elseif is_granted('ROLE_UTILISATEUR') %}
-                        utilisateur simple
+                        <B>utilisateur simple</B>
                     {% else %}
-                        anonyme
+                        <B>utilisateur anonyme</B>
                     {% endif %}
                 </p>
                 <!--<p>
