@@ -12,13 +12,12 @@ security:
                     admin:    { password: admin, roles: ['ROLE_ADMINISTRATEUR'] }
 
     firewalls:
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
+        main_login:
+            pattern: ^/Blog/login$
+            anonymous: true
         main:
             pattern:   ^/
-            anonymous: true
+            anonymous: false
             provider:  in_memory
             form_login:
                 login_path: login
@@ -26,3 +25,6 @@ security:
             logout:
                 path: logout
                 target: /Blog
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
