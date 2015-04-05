@@ -28,3 +28,5 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+    access_control:
+        - {path: ^/ajouter, roles: ROLE_ADMINISTRATEUR}
